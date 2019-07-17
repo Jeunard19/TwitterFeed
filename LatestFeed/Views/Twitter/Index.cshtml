@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Welcome";
+
+}
+
+@using (Html.BeginForm("Welcome", "Twitter", FormMethod.Post))
+{
+    <input type="text" name="ScreenName" id="ScreenName" />
+    <input type="number" name="NumberTweets" id="NumberTweets" />
+
+    <input type="submit"  value="Welcome" />
+    <ul>
+        @if (ViewData["NumTimes"] != null)
+    {
+
+
+        for (int i = (int)ViewData["NumTimes"] - 1; i >= 0; i--)
+        {
+            <li>@ViewData[string.Format("Message{0}", i)]</li>
+    }
+} else{<li>Tweets</li>}
+
+    </ul>
+}
+
+
