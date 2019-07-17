@@ -14,14 +14,8 @@ namespace LatestFeed.Controllers
 {
     public class TwitterController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-
         [HttpPost]
-        public IActionResult Welcome(string ScreenName, int NumberTweets)
+        public IActionResult Index(string ScreenName, int NumberTweets)
         {
            
                 IEnumerable<string> twitts = this.GetTweets(userName: ScreenName, count: NumberTweets).Result;

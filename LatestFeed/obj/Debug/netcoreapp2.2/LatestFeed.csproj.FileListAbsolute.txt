@@ -29,4 +29,3 @@
 /Users/jeunardboekhoudt/Projects/LatestFeed/LatestFeed/obj/Debug/netcoreapp2.2/LatestFeed.pdb
 /Users/jeunardboekhoudt/Projects/LatestFeed/LatestFeed/obj/Debug/netcoreapp2.2/LatestFeed.csproj.CopyComplete
 /Users/jeunardboekhoudt/Projects/LatestFeed/LatestFeed/obj/Debug/netcoreapp2.2/Razor/Views/Twitter/Index.g.cshtml.cs
-/Users/jeunardboekhoudt/Projects/LatestFeed/LatestFeed/obj/Debug/netcoreapp2.2/Razor/Views/Twitter/Welcome.g.cshtml.cs

@@ -16,5 +16,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Models\EmptyClass.cs" />
+    <Compile Remove="Models\TwitterModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Views\Home\Welcome.cshtml" />
+    <Content Remove="Views\Twitter\Welcome.cshtml" />
   </ItemGroup>
 </Project>
