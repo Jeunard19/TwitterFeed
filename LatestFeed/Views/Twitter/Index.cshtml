@@ -3,8 +3,12 @@
 
 }
 
-
+<!--Get ScreenName of twitter user-->
+<h2>User: @ViewData["Name"]</h2>
 <ul>
+    <!--Here I create a loop with i starting with the value in NumTimes
+    and decrement by 1 each turn, i is then added to the end of the string 'Message' inorder
+    to retrieve the corresponding ViewData value-->
     @for (int i = (int)ViewData["NumTimes"] - 1; i >= 0; i--)
     {
         <li>@ViewData[string.Format("Message{0}", i)]</li>
