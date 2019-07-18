@@ -39,7 +39,7 @@ namespace LatestFeed.Controllers
             return View();
         }
 
-        // This function will obtain an authorization token from the twitter api    
+        // This function will obtain an authorization token from the twitter api using basic auth   
         public async Task<string> GetAccessToken()
         {
             //httpClient class is used for downloading web content 
