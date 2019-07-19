@@ -14,7 +14,7 @@ namespace LatestFeed.Controllers
         [HttpPost]
         public IActionResult Index(string ScreenName, int NumberTweets)
         {
-            //Call the GetTweets method
+            //Call the GetTweets method.
             IEnumerable<string> twitts = this.GetTweets(ScreenName, count:NumberTweets).Result;
             
             int numTweets = 0;
@@ -40,32 +40,32 @@ namespace LatestFeed.Controllers
             return View();
         }
 
-        // This function will obtain an authorization token from the twitter api using basic auth   
+        // This function will obtain an authorization token from the twitter api using basic auth. 
         public async Task<string> GetAccessToken()
         {
-            //httpClient class is used for downloading web content 
+            //httpClient class is used for downloading web content. 
             var httpClient = new HttpClient();
-            //Post request is made on the api
+            //Post request is made on the api.
             var request = new HttpRequestMessage(HttpMethod.Post, "https://api.twitter.com/oauth2/token ");
-            //The consumer key and consumer secret is added for authorization
+            //The consumer key and consumer secret is added for authorization.
             var customerInfo = Convert.ToBase64String(new UTF8Encoding()
                                       .GetBytes("tdHnm9ytsQ0Ry0QSCXykOh03G" + ":" + "6gLDfqSol66u4FuPSAfHxRmEtVZJ9OUO4vHGgy9HEglriLwQ8i"));
             request.Headers.Add("Authorization", "Basic " + customerInfo);
             request.Content = new StringContent("grant_type=client_credentials",
                                                     Encoding.UTF8, "application/x-www-form-urlencoded");
-            //Json Object is obtained
+            //Json Object is obtained.
             HttpResponseMessage response = await httpClient.SendAsync(request);
             string json = await response.Content.ReadAsStringAsync();
-            //Token is obtained from Json
+            //Token is obtained from Json.
             dynamic item = JsonConvert.DeserializeObject<object>(json);
             return item["access_token"];
         }
 
 
-        //This method utilize the acces token in order to obtain the latest tweets from a user
+        //This method utilize the acces token in order to obtain the latest tweets from a user.
         public async Task<IEnumerable<string>> GetTweets(string userName, int count, string accessToken = null)
         {
-            //Call GetAccessToken method
+            //Call GetAccessToken method.
             if (accessToken == null)
             {
                 accessToken = await GetAccessToken();
@@ -76,7 +76,7 @@ namespace LatestFeed.Controllers
                 string.Format("https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name={1}&count={0}&trim_user=1&exclude_replies=1", count, userName));
             request.Headers.Add("Authorization", "Bearer " + accessToken);
             var httpClient = new HttpClient();
-            //Json Object is obtained
+            //Json Object is obtained.
             HttpResponseMessage response = await httpClient.SendAsync(request);
             dynamic json = JsonConvert.DeserializeObject<object>(await response.Content.ReadAsStringAsync());
             var Tweets = (json as IEnumerable<dynamic>);

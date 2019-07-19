@@ -9,8 +9,15 @@
     <!--Here I create a loop with i starting at 0
     and increment by 1 each turn, i is then added to the end of the string 'Message' inorder
     to retrieve the corresponding ViewData value-->
-    @for (int i = 0; i < (int)ViewData["NumTimes"] ; i++)
+    @for (int i = 0; i < (int)ViewData["NumTimes"]; i++)
     {
-        <li>@ViewData[string.Format("Message{0}", i)]</li>
-    }
+
+            @if (ViewData[string.Format("Message{0}", i)]!=null){
+               <li>   @ViewData[string.Format("Message{0}", i)]</li>
+            } else{
+                break;
+            }
+
+
+        }
 </ul>
