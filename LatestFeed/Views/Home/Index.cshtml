@@ -6,11 +6,10 @@
 @using (Html.BeginForm("Index", "Twitter", FormMethod.Post))
 {
     <!--Ask for ScreenName and Number of Tweets from app-->
-    <input type="text" name="ScreenName" id="ScreenName" required/>
-    <input type="number" name="NumberTweets" id="NumberTweets" min="1" required/>
-    <input type="submit"  value="Submit" />
-    <ul>
+    <h2>Please enter twitter user and number of latest tweets you wish to retrieve.</h2>
 
-  <li>Please enter twitter user and number of latest tweets you wish to retrieve.</li>
-    </ul>
+    <input type="text" name="ScreenName" id="ScreenName" required />
+    <input type="number" name="NumberTweets" id="NumberTweets" min="1" required />
+    <input type="submit" value="Submit" />
+
 }

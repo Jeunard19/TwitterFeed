@@ -10,7 +10,7 @@ namespace LatestFeed.Controllers
 {
     public class TwitterController : Controller
     {
-        //This function will get x tweets from a user using his/her screen name.
+        //This function will get a specified amount of tweets from a user using his/her screen name.
         [HttpPost]
         public IActionResult Index(string ScreenName, int NumberTweets)
         {
@@ -18,12 +18,13 @@ namespace LatestFeed.Controllers
             IEnumerable<string> twitts = this.GetTweets(ScreenName, count:NumberTweets).Result;
             
             int numTweets = 0;
-            //Set the ScreenName of the twitter user inorder to access it in View. 
+            //Set the ScreenName of the twitter user in order to access it in View. 
             ViewData["Name"] = ScreenName;
 
             try
             {
-                //Get tweets and attach them to Viewdata by creating a set of messages
+                //Get tweets and attach them to Viewdata by creating a set of messages. Each message
+                //will have a number attached to it in order to identify the tweet.
                 foreach (var t in twitts)
                 {
                     ViewData[string.Format("Message{0}", numTweets++)] = t + "\n";
@@ -61,7 +62,7 @@ namespace LatestFeed.Controllers
         }
 
 
-        //This method utilize the acces token inorder to obtain the latest tweets from a user
+        //This method utilize the acces token in order to obtain the latest tweets from a user
         public async Task<IEnumerable<string>> GetTweets(string userName, int count, string accessToken = null)
         {
             //Call GetAccessToken method
@@ -71,21 +72,21 @@ namespace LatestFeed.Controllers
             }
 
             //Get request using the access token is made for a specific twitter user.
-            var requestUserTimeline = new HttpRequestMessage(HttpMethod.Get,
+            var request= new HttpRequestMessage(HttpMethod.Get,
                 string.Format("https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name={1}&count={0}&trim_user=1&exclude_replies=1", count, userName));
-            requestUserTimeline.Headers.Add("Authorization", "Bearer " + accessToken);
+            request.Headers.Add("Authorization", "Bearer " + accessToken);
             var httpClient = new HttpClient();
             //Json Object is obtained
-            HttpResponseMessage responseUserTimeLine = await httpClient.SendAsync(requestUserTimeline);
-            dynamic json = JsonConvert.DeserializeObject<object>(await responseUserTimeLine.Content.ReadAsStringAsync());
-            var enumerableTweets = (json as IEnumerable<dynamic>);
+            HttpResponseMessage response = await httpClient.SendAsync(request);
+            dynamic json = JsonConvert.DeserializeObject<object>(await response.Content.ReadAsStringAsync());
+            var Tweets = (json as IEnumerable<dynamic>);
 
             //If tweets are availible, then search for tweet text in json.
-            if (enumerableTweets == null)
+            if (Tweets == null)
             {
                 return null;
             }
-                 return enumerableTweets.Select(t => (string)(t["text"].ToString()));   
+                 return Tweets.Select(t => (string)(t["text"].ToString()));   
         }
     }
 }
